@@ -8,7 +8,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 
-public class JwtUtil {
+public class
+JwtUtil {
 
     private static final String SECRET_KEY = "my_super_secure_secret_key_which_is_long_enough_123!";
     private static final long EXPIRATION_TIME = 86400000; // 1 day
