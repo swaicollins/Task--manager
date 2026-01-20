@@ -3,9 +3,11 @@ package com.example.taskmanager.controller;
 import com.example.taskmanager.model.User;
 import com.example.taskmanager.repository.UserRepository;
 import com.example.taskmanager.security.JwtUtil;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -20,11 +22,16 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String register(@RequestBody User user) {
+    public ResponseEntity<Map<String, String>> register(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
-        return "User registered successfully";
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "User registered successfully");
+
+        return ResponseEntity.ok(response);
     }
+
 
     @PostMapping("/login")
     public Map<String, String> login(@RequestBody User user) {
