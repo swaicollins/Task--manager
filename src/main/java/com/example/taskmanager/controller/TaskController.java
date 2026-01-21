@@ -6,9 +6,12 @@ import com.example.taskmanager.model.Task;
 import com.example.taskmanager.repository.TaskRepository;
 import com.example.taskmanager.service.TaskService;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/tasks")
@@ -39,8 +42,18 @@ public class TaskController {
         return taskService.updateTask(id, taskDto);
     }
 
+//    @DeleteMapping("/{id}")
+//    public void deleteTask(@PathVariable Long id) {
+//        taskService.deleteTask(id);
+//    }
+
     @DeleteMapping("/{id}")
-    public void deleteTask(@PathVariable Long id) {
+    public ResponseEntity<Map<String, String>> deleteTask(@PathVariable Long id) {
         taskService.deleteTask(id);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Task deleted successfully");
+
+        return ResponseEntity.ok(response);
     }
 }
